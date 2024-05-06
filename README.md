@@ -1,2 +1,6 @@
-# 1
-Academic English Writing Supporter
+# Academic English Writing Supporter
+学術的な英単語を集め、復習するための単語帳です。
+さらに、英語で学術論文を書くときに、この単語帳を利用して、相応しい英単語を調べることができます。
+
+
+施工中...
