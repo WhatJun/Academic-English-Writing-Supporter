@@ -82,7 +82,7 @@ class SearchAcademicWord:
         synonyms_tags = soup.find_all("a", class_="Bf5RRqL5MiAp4gB8wAZa")
         synonyms = [word.text.strip() for word in synonyms_tags]
         
-        print(f"syn:{synonyms}")
+        # print(f"syn:{synonyms}")
     
         # 意味的に近い単語の中からWLに保存されているものを優先的に結果単語リストに入れる
         for word in synonyms:
