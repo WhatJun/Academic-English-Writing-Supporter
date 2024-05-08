@@ -1,19 +1,19 @@
-
-import numpy as np
 import requests
 import pandas as pd
 from bs4 import BeautifulSoup
-from gensim import models
+# from gensim import models
 # from IPython.display import display
 
-model_path = "./wordvec/glove.6B.50d.txt"
+# model_path = "./wordvec/glove.6B.50d.txt"
 
-model =  models.KeyedVectors.load_word2vec_format(model_path, binary=False)
+# model =  models.KeyedVectors.load_word2vec_format(model_path, binary=False)
 
 SEARCH_ENGINE = "https://ejje.weblio.jp/content/" #日本語から英語を検索するための
 # "https://www.deepl.com/ja/translator#ja/en/"
 
 SEARCH_ENGINE2 = "https://ejje.weblio.jp/content/" #英語から日本語を検索するための
+
+syn_SEARCH_ENGINE = "https://www.thesaurus.com/browse/"
 
 # 検索結果の数の設定
 results_NUM = 5
@@ -52,7 +52,6 @@ class SearchAcademicWord:
         else:
             # netから検索語の英語を取得
                 search_word = SEARCH_ENGINE + self.word
-                print("sw:"+ search_word)
                 url = requests.get(search_word)
             
                 soup = BeautifulSoup(url.text, "html.parser")
@@ -77,17 +76,14 @@ class SearchAcademicWord:
             self.syn_from_net.append(self.en_from_net)
         
         # 類似する単語のリストを取得
-    
-        # 検索語の英語に最も意味的に近い単語を、検索結果の数の2倍個取得
-        most_similar_words = model.most_similar(self.en, topn=results_NUM*2)
+        search_word = syn_SEARCH_ENGINE + self.en
+        url = requests.get(search_word)
+        soup = BeautifulSoup(url.text, "html.parser")
+        synonyms_tags = soup.find_all("a", class_="Bf5RRqL5MiAp4gB8wAZa")
+        synonyms = [word.text.strip() for word in synonyms_tags]
         
-        # すべてのタプルから単語部分だけを取り出す
-        synonyms = [w for w, _ in most_similar_words]
+        print(f"syn:{synonyms}")
     
-         
-        # synonyms_str = ', '.join(str(s) for s in synonyms)
-        # print("syn:" + synonyms_str)
-        
         # 意味的に近い単語の中からWLに保存されているものを優先的に結果単語リストに入れる
         for word in synonyms:
             if word in self.WL.index.values:
