@@ -27,7 +27,6 @@ import pandas as pd
 from search import Search
 from search2 import SearchAcademicWord
 from tkinter import ttk
-from IPython.display import display
 
 # CSVファイルのパス
 wordPATH = "./wordfile/wordList.csv"
@@ -38,7 +37,7 @@ class VocabularyApp:
     
     def __init__(self, master):
         self.master = master 
-        self.master.title("英単語学習") 
+        self.master.title("Academic English Writing Supporter") 
         self.master.geometry("900x500+300+150") # ウィンドウサイズと開始位置の設定
         self.master.configure(bg="#FFFFFF") # ウィンドウの背景色
         
@@ -108,7 +107,11 @@ class VocabularyApp:
             self.textPron.config(text=pron, fg="#FFFFFF")
         else:
             # 全部終わったときのメッセージ
-            self.textWord.config(text="Finsihed!")
+            self.textWord.config(text="You did it!")
+            self.textMeaning.config(text="")
+            self.textMeaning2.config(text="")
+            self.textMeaning3.config(text="")
+            self.textPron.config(text="")
             
     def open_winSP(self):
         # 検索用のウィンドウを開く
@@ -192,7 +195,6 @@ class SearchPage:
         if self.search.if_in_list():
             # 保存した意味と発音を返す
             self.mean, self.pron = self.search.get_mean()
-            self.mean += "（すでに保存済み）"
         else:
             # 検索した意味と発音を返す
             self.mean, self.pron=self.search.search()
@@ -243,7 +245,7 @@ class WordListPage:
     def __init__(self, master):
         
         self.master = master 
-        self.master.title("英単語辞書")
+        self.master.title("保存した単語")
         self.master.geometry("1200x500+100+100") # ウィンドウサイズと開始位置の設定
         self.master.configure(bg="#FFFFFF") #windowの背景色
 
@@ -334,7 +336,7 @@ class SearchPageAW:
     def __init__(self, master):
         
         self.master = master 
-        self.master.title("Academic Search")
+        self.master.title("Academic Search (日本語→En)")
         self.master.geometry("500x500+500+100") # ウィンドウサイズと開始位置の設定
         self.master.configure(bg="#FFFFFF") #windowの背景色
         
@@ -366,6 +368,7 @@ class SearchPageAW:
         self.tree = ttk.Treeview(frame) # Treeviewの作成
         self.tree.column("#0", width=50, stretch=tk.NO, anchor=tk.E) # 列設定
         self.tree.grid(row=0, column=0, sticky=tk.W + tk.E + tk.N + tk.S) # Treeviewの配置
+        # self.tree.tag_configure("red", background="#FF0000",foreground="#FF0000") 
         # vscrollbar = ttk.Scrollbar(self.master, orient=tk.VERTICAL, command=self.tree.yview)
         # self.tree.configure(yscrollcommand=vscrollbar.set) # スクロールバー設定
         # vscrollbar.grid(row=0, column=1, sticky=tk.W + tk.E + tk.N + tk.S)
@@ -394,9 +397,10 @@ class SearchPageAW:
         try:
             self.search.get_En()
         except:
-            errorMessage = "検索語の英語が存在しないかネットにつながらりせん"
+            errorMessage1 = "日本語を入力してください"
+            errorMessage2 = "もしくは検索語の英語が存在しないかネットにつながらりせん"
             self.tree.delete(*self.tree.get_children())
-            self.tree.insert("", "end", values=(errorMessage, ""))
+            self.tree.insert("", "end", values=(errorMessage1, errorMessage2))
             return
         
         # 英訳から同義語を取得
@@ -407,16 +411,16 @@ class SearchPageAW:
             
         # 同義語からその意味を調べ、結果に渡す
         results = self.search.get_results()
-
-        display(results)
         
         # treeをリセット
         self.tree.delete(*self.tree.get_children()) 
         
+        
         # 結果treeに英単語と意味を格納
         for i in results.index:
-            self.tree.insert("", "end", values=(results["words"][i], results["meanings"][i]), tags=str(results["tag"][i]))
-        self.tree.tag_configure("red", background="#ff0000")    
+            self.tree.insert("", "end", values=(results["words"][i], results["meanings"][i]), tags=(str(results["tag"][i]), ))
+            print(f"result{i}:{results['tag'][i]}")
+        self.tree.tag_configure("red", background="#ffa500")
              
     # def show_menu(self, e):
     #     # 右クリックメニューを表示する関数
