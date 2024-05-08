@@ -17,7 +17,7 @@ Functions:
 意味的に近い言葉の連想(学習ずみのword2vecモデルに基づく)〇起動するのに時間がかかるが
 検索エンジンが選択できる(in future)
 検索言語が選択できる(in future)
-ヒット語がWLにある場合に色変する(in progress)
+ヒット語がWLにある場合に色変する〇
 """
 
 import csv 
