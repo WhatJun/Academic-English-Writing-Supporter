@@ -3,8 +3,8 @@
 
 [Check out the lastest release](https://github.com/WhatJun/Academic-English-Writing-Supporter/releases/tag/AEWS-0.2.1-beta)
 
-英語の論文を書くときに、特定の表現をどのような言葉で表せばいいか悩んだことはありませんか？\n
-このAcademic English Writing Supporterをぜひお試しください。
+英語の論文を書くときに、特定の表現をどのような言葉で表せばいいか悩んだことはありませんか？
+\nこのAcademic English Writing Supporterをぜひお試しください。\n
 
 # 使い方：
 * 英語の論文を読むときに、知らない単語や論文でしか見かけない単語を、このアプリを使って調べて保存
