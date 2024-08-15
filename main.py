@@ -23,13 +23,18 @@ Functions:
 import csv 
 import random
 import tkinter as tk
-import pandas as pd
-from search import Search
-from search2 import SearchAcademicWord
 from tkinter import ttk
+import pandas as pd
+
+from modules import Search, SearchAcademicWord
+
+
+
+# 日本語のフォント
+FONT = "YuGothic"
 
 # CSVファイルのパス
-wordPATH = "./wordfile/wordList.csv"
+WORDPATH = "./wordfile/wordList.csv"
 
 
 class VocabularyApp:
@@ -49,7 +54,7 @@ class VocabularyApp:
     def load_words(self):
         # CSVファイルから英単語などを読み込む
         self.words = []
-        with open(wordPATH, newline = "", encoding = "utf-8") as csvfile:
+        with open(WORDPATH, newline = "", encoding = "utf-8") as csvfile:
             reader = csv.reader(csvfile)
             next(reader) # 一行目を飛ばす
             for row in reader:
@@ -61,30 +66,30 @@ class VocabularyApp:
         # GUIの設定
         
         # ラベルやボタンの作成と配置
-        self.textWord = tk.Label(self.master, bg="#FFFFFF", font=("Times New Roman", 36))
-        self.textMeaning = tk.Label(self.master, bg="#FFFFFF", font=("YU Gothic", 24))
-        self.textMeaning2 = tk.Label(self.master, bg="#FFFFFF", font=("YU Gothic", 24))
-        self.textMeaning3 = tk.Label(self.master, bg="#FFFFFF", font=("YU Gothic", 24))
-        self.textPron = tk.Label(self.master, bg="#FFFFFF", font=("Helvetica", 24))
-        self.buttonShow = tk.Button(self.master, text="Show", font=12,width=20, command=self.show_hint)
-        self.buttonNext = tk.Button(self.master, text="Next", font=12, width=20, command=self.next_word)
-        self.buttonWinSP = tk.Button(self.master, text="Search(En→日)", font=10, width=20, command=self.open_winSP)
-        self.buttonWinSP2 = tk.Button(self.master, text="Search(Academic)", font=10, width=20, command=self.open_winSP2)
-        self.buttonWinWL = tk.Button(self.master, text="Word List", font=10, width=20, command=self.open_winWL)
-        self.buttonExit = tk.Button(self.master, text="Exit", font=12, width=20,command=self.master.quit)
+        self.textWord = tk.Label(self.master, fg="#000000", bg="#FFFFFF", font=("Times New Roman", 36))
+        self.textMeaning = tk.Label(self.master, fg="#FFFFFF", bg="#FFFFFF", font=(FONT, 24))
+        self.textMeaning2 = tk.Label(self.master, fg="#FFFFFF", bg="#FFFFFF", font=(FONT, 24))
+        self.textMeaning3 = tk.Label(self.master, fg="#FFFFFF", bg="#FFFFFF", font=(FONT, 24))
+        self.textPron = tk.Label(self.master, fg="#FFFFFF", bg="#FFFFFF",font=("Times New Roman", 24))
+        self.buttonShow = tk.Button(self.master, text="Show", bg="#FFFFFF", font=20, width=20, height=1, highlightbackground="#FFFFFF", command=self.show_hint)
+        self.buttonNext = tk.Button(self.master, text="Next", font=15, width=20, highlightbackground="#FFFFFF", command=self.next_word)
+        self.buttonWinSP = tk.Button(self.master, text="Search(En→日)", font=10, width=20, highlightbackground="#FFFFFF", command=self.open_winSP)
+        self.buttonWinSP2 = tk.Button(self.master, text="Search(Academic)", font=10, width=20, highlightbackground="#FFFFFF", command=self.open_winSP2)
+        self.buttonWinWL = tk.Button(self.master, text="Word List", font=10, width=20, highlightbackground="#FFFFFF", command=self.open_winWL)
+        self.buttonExit = tk.Button(self.master, text="Exit", font=12, width=20, highlightbackground="#FFFFFF", command=self.master.quit)
                 
         self.textWord.pack()
         self.textPron.pack()
         self.textMeaning.pack()
         self.textMeaning2.pack()
         self.textMeaning3.pack()
-        self.buttonShow.pack()
-        self.buttonNext.pack()
-        self.buttonWinSP.pack()
-        self.buttonWinSP2.pack()
-        self.buttonWinWL.pack()
-        self.buttonExit.place(x=650, y=450)
-    
+        self.buttonShow.pack(pady=0)
+        self.buttonNext.pack(pady=0)
+        self.buttonWinSP.pack(pady=0)
+        self.buttonWinSP2.pack(pady=0)
+        self.buttonWinWL.pack(pady=0)
+        self.buttonExit.pack(pady=0)
+
     def show_hint(self):
         # 意味と発音を表示する関数
         
@@ -149,15 +154,15 @@ class SearchPage:
         # GUIの設定
         
         # ラベルやボタンの作成と配置
-        self.labelSearchWord = tk.Label(self.master, text="検索する単語：", bg="#FFFFFF", font=("Meiryo", 15), anchor=tk.CENTER)
-        self.searchBox = tk.Entry(self.master, bg="#f5c6ef", font=20) # 検索語を入力する場所
-        self.labelSearchOnset = tk.Label(self.master, text="↲", bg="#FFFFFF", font=("Meiryo", 15), anchor=tk.CENTER)
-        self.labelMean = tk.Label(self.master, text="意味：", bg="#FFFFFF", font=("Meiryo", 15), anchor=tk.CENTER)
-        self.searchResults = tk.Text(self.master, bg="#d5f5ee",width=25, height=5, font=10) # 検索結果の意味を提示する場所
-        self.labelPron = tk.Label(self.master, text="発音：", bg="#FFFFFF", font=("Meiryo", 15), anchor=tk.CENTER)
+        self.labelSearchWord = tk.Label(self.master, text="検索する単語：", fg="#000000", bg="#FFFFFF", font=(FONT, 15), anchor=tk.CENTER)
+        self.searchBox = tk.Entry(self.master, fg="#000000", bg="#f5c6ef", font=("Times New Roman", 20)) # 検索語を入力する場所
+        self.labelSearchOnset = tk.Label(self.master, text="↲", fg="#000000", bg="#FFFFFF", font=("Times New Roman", 15), anchor=tk.CENTER)
+        self.labelMean = tk.Label(self.master, text="意味：", fg="#000000", bg="#FFFFFF", font=(FONT, 15), anchor=tk.CENTER)
+        self.searchResults = tk.Text(self.master, bg="#d5f5ee", fg="#000000", width=25, height=5, font=(FONT, 10)) # 検索結果の意味を提示する場所
+        self.labelPron = tk.Label(self.master, text="発音：", fg="#000000", bg="#FFFFFF", font=(FONT, 15), anchor=tk.CENTER)
         self.searchPron = tk.Text(self.master, bg="#d5f5ee", width=20, height=1, font=10) #検索結果の発音を提示する場所
-        self.ButtonADD = tk.Button(self.master, text="記録", font=8, width=18, command=self.addWord)
-        self.buttonExit = tk.Button(self.master, text="Exit", font=8, width=18, command=self.quit_win)
+        self.ButtonADD = tk.Button(self.master, text="記録", font=(FONT, 12), width=18, command=self.addWord)
+        self.buttonExit = tk.Button(self.master, text="Exit", font=(FONT, 12), width=18, command=self.quit_win)
     
         self.labelSearchWord.grid(row=0, column=0)
         self.searchBox.grid(row=0, column=1, sticky=tk.EW, padx=5, pady=10)
@@ -189,7 +194,7 @@ class SearchPage:
         
         # 検索語とcsvファイルのパスを渡す
         self.search.set_word(searchWord)
-        self.search.set_csv(wordPATH)
+        self.search.set_csv(WORDPATH)
         
         # 検索語がWLにあるか否かで分岐
         if self.search.if_in_list():
@@ -207,7 +212,7 @@ class SearchPage:
         # 検索語をWLに格納するための関数
         
         # WordListのデータフレームを取得
-        WL = pd.read_csv(wordPATH)
+        WL = pd.read_csv(WORDPATH)
         
         if self.searchBox.get() not in WL["words"].values:
             # 検索語がWLにない場合
@@ -225,7 +230,7 @@ class SearchPage:
             new_WL = pd.concat([WL, new_word], ignore_index=True)
             
             # 新しいWLをWLに導出する
-            new_WL.to_csv(wordPATH, index=False)
+            new_WL.to_csv(WORDPATH, index=False)
             
             #WLに格納したことのフィードバック
             self.searchResults.insert("end", "\n記録しました", "blueTag")
@@ -250,7 +255,7 @@ class WordListPage:
         self.master.configure(bg="#FFFFFF") #windowの背景色
 
         self.state_ascending = False # ソートの順番の設定
-        self.WL = pd.read_csv(wordPATH) # CSVから単語リストを読み込み、データフレームとしてself.WLに格納
+        self.WL = pd.read_csv(WORDPATH) # CSVから単語リストを読み込み、データフレームとしてself.WLに格納
         self.create_widgets() # ウィジェットの作成
         self.show_words() # 単語を表示
 
@@ -328,7 +333,7 @@ class WordListPage:
         index = self.tree.item(selected_item[0], "values")[0] # 選択されたアイテムのインデックス取得
         self.WL = self.WL[self.WL["words"] != index] # DataFrameから単語を削除
         self.tree.delete(selected_item) # Treeviewからアイテムを削除
-        self.WL.to_csv(wordPATH, index=False) # 変更をCSVに保存
+        self.WL.to_csv(WORDPATH, index=False) # 変更をCSVに保存
 
 
 class SearchPageAW:
@@ -340,7 +345,7 @@ class SearchPageAW:
         self.master.geometry("500x500+500+100") # ウィンドウサイズと開始位置の設定
         self.master.configure(bg="#FFFFFF") #windowの背景色
         
-        self.WL = pd.read_csv(wordPATH)
+        self.WL = pd.read_csv(WORDPATH)
         self.create_widgets() # ウィジェットの作成
         self.search = SearchAcademicWord()
         
@@ -391,7 +396,7 @@ class SearchPageAW:
         
         # 検索語とcsvファイルのパスを渡す
         self.search.set_word(searchWord)
-        self.search.set_csv(wordPATH)
+        self.search.set_csv(WORDPATH)
         
         # 検索語から英訳を取得
         try:
@@ -433,10 +438,9 @@ class SearchPageAW:
     #         self.menu.post(e.x_root, e.y_root) # メニューを表示
     
     def save_word(self):
-        None
+        pass
     
         
-# if __name__ == "__main__":
 root = tk.Tk()
 app = VocabularyApp(master=root)
 root.mainloop()
