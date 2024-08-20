@@ -78,11 +78,12 @@ class VocabularyApp:
         self.textMeaning2 = tk.Label(self.master, fg="#FFFFFF", bg="#FFFFFF", font=(FONT, 24))
         self.textMeaning3 = tk.Label(self.master, fg="#FFFFFF", bg="#FFFFFF", font=(FONT, 24))
         self.textPron = tk.Label(self.master, fg="#FFFFFF", bg="#FFFFFF",font=("Times New Roman", 24))
-        self.buttonShow = tk.Button(self.master, text="Show", bg="#FFFFFF", font=20, width=20, height=1, highlightbackground="#FFFFFF", command=self.show_hint)
-        self.buttonNext = tk.Button(self.master, text="Next", font=15, width=20, highlightbackground="#FFFFFF", command=self.next_word)
-        self.buttonWinSP = tk.Button(self.master, text="Search(En→日)", font=10, width=20, highlightbackground="#FFFFFF", command=self.open_winSP)
-        self.buttonWinSP2 = tk.Button(self.master, text="Search(Academic)", font=10, width=20, highlightbackground="#FFFFFF", command=self.open_winSP2)
-        self.buttonWinWL = tk.Button(self.master, text="Word List", font=10, width=20, highlightbackground="#FFFFFF", command=self.open_winWL)
+            
+        self.buttonShow = tk.Button(self.master, text="Show", bg="#FFFFFF", font=12, width=20, height=1, highlightbackground="#FFFFFF", command=self.show_hint)
+        self.buttonNext = tk.Button(self.master, text="Next", font=12, width=20, highlightbackground="#FFFFFF", command=self.next_word)
+        self.buttonWinSP = tk.Button(self.master, text="Search(En→日)", font=12, width=20, highlightbackground="#FFFFFF", command=self.open_winSP)
+        self.buttonWinSP2 = tk.Button(self.master, text="Search(Academic)", font=12, width=20, highlightbackground="#FFFFFF", command=self.open_winSP2)
+        self.buttonWinWL = tk.Button(self.master, text="Word List", font=12, width=20, highlightbackground="#FFFFFF", command=self.open_winWL)
         self.buttonExit = tk.Button(self.master, text="Exit", font=12, width=20, highlightbackground="#FFFFFF", command=self.master.quit)
                 
         self.textWord.pack()
