@@ -1,7 +1,6 @@
 """
 Author: Wenjun ZHU
 Start_Date: 2024/04/21
-First_Release: 2024/05/
 
 Intro:学術的な英単語を集め、復習するための単語帳です。
         さらに、英語で学術論文を書くときに、この単語帳を利用して、相応しい英単語を調べることができます。
@@ -25,6 +24,8 @@ import random
 import tkinter as tk
 from tkinter import ttk
 import pandas as pd
+import os
+import sys
 
 from modules import Search, SearchAcademicWord
 
@@ -34,7 +35,13 @@ from modules import Search, SearchAcademicWord
 FONT = "YuGothic"
 
 # CSVファイルのパス
-WORDPATH = "./wordfile/wordList.csv"
+if getattr(sys, 'frozen', False):
+    # pyinstallerで生成されたexeファイルで実行する場合
+    base_path = sys._MEIPASS
+else:
+    # 通常のPythonスクリプトとして実行する場合
+    base_path = os.path.abspath("./")
+WORDPATH = os.path.join(base_path, 'source', 'wordfile', 'wordList.csv')
 
 
 class VocabularyApp:
