@@ -13,10 +13,10 @@ SEARCH_ENGINE = "https://ejje.weblio.jp/content/" #日本語から英語を検�
 
 SEARCH_ENGINE2 = "https://ejje.weblio.jp/content/" #英語から日本語を検索するための
 
-syn_SEARCH_ENGINE = "https://www.thesaurus.com/browse/"
+SYN_SEARCH_ENGINE = "https://www.thesaurus.com/browse/"
 
 # 検索結果の数の設定
-results_NUM = 5
+RESULTS_NUM = 5
 
 
 class SearchAcademicWord:
@@ -76,7 +76,7 @@ class SearchAcademicWord:
             self.syn_from_net.append(self.en_from_net)
         
         # 類似する単語のリストを取得
-        search_word = syn_SEARCH_ENGINE + self.en
+        search_word = SYN_SEARCH_ENGINE + self.en
         url = requests.get(search_word)
         soup = BeautifulSoup(url.text, "html.parser")
         synonyms_tags = soup.find_all("a", class_="Bf5RRqL5MiAp4gB8wAZa")
@@ -125,7 +125,7 @@ class SearchAcademicWord:
                 # 最終結果に入れる
                 final_results = pd.concat([final_results, result], ignore_index=True)
                 
-                if len(final_results["words"]) >= results_NUM:
+                if len(final_results["words"]) >= RESULTS_NUM:
                     break
         
         if self.syn_from_net:    
@@ -145,7 +145,7 @@ class SearchAcademicWord:
                     result = pd.DataFrame([[syn_out, errorMean, "no"]], columns=final_results.columns)
                     final_results = pd.concat([final_results, result], ignore_index=True)
 
-                if len(final_results["words"]) >= results_NUM:
+                if len(final_results["words"]) >= RESULTS_NUM:
                     break
                 
         return final_results
